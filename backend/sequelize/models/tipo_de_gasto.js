@@ -1,17 +1,17 @@
 module.exports = (sequelize, DataTypes) => {
-    const Rol = sequelize.define(
-      'Rol', {
+    const Tipo_de_gasto = sequelize.define(
+      'Tipo_de_gasto', {
         id: {
           type: DataTypes.INTEGER,
           primaryKey: true,
           allowNull: false,
           autoIncrement: true
         },
-        Rol: {
+        Descripcion: {
           type: DataTypes.STRING,
           allowNull: false
         }
       }, {});
 
-return Rol;
+return Tipo_de_gasto;
 };

@@ -1,19 +1,30 @@
 module.exports = (sequelize, DataTypes) => {
-    const Apartamento = sequelize.define('apartamento', {
-
-        id: {
-            type: DataTypes.INTEGER,
-            autoIncrement: true,
-            primaryKey: true,
-            allowNull: false
+    const Apartamento = sequelize.define(
+      'Apartamento', {
+        Codigo: {
+          type: DataTypes.STRING,
+          primaryKey: true,
+          allowNull: false
         },
-
-        codigo: {
-            type: DataTypes.STRING(15),
-            allowNull: false
+        Piso: {
+          type: DataTypes.INTEGER,
+          allowNull: false
+        },
+        edificio_id: {
+          type: DataTypes.INTEGER,
+          allowNull: false
         }
-    }, {});
+      }, {});
 
-return Apartamento
+Apartamento.associate = function(models) {
+  Apartamento.belongsTo(models.Edificio, {
+    foreignKey: 'edificio_id',
+    target: 'id'
+  });
+
 
 }
+
+return Apartamento;
+
+};

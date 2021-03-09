@@ -2,78 +2,98 @@ const { gql } = require('apollo-server-express')
 
 const typeDefs = gql`
 
-type propietario{
+type Rol{
     id: Int!
-    nombre: String!
-    apellido: String!
+    Rol: String!
+}
+
+type Condominio{
+    id: Int!
+    Nombre: String!
+}
+
+type Tipo_de_gasto{
+    id: Int!
+    Descripcion: String!
+}
+
+type Edificio{
+    id: Int!
+    Nombre: String!
+    condominio_id: Int!
+}
+
+type Apartamento{
+    Codigo: String!
+    Piso: Int!
+    edificio_id: Int!
+}
+
+type Factura_por_apartamento{
+    Anno: Int!
+    Monto: Int!
+    Mes: Int!
+    Fecha_Vencimiento: String!
+    Fecha_Pago: String
+    apartamento_Codigo: String!
+}
+
+type Gastos_mensuales{
+    Anno: Int!
+    Mes: Int!
+    Monto: Int!
+    Fecha_Pago: String!
+    Modo_Pago: String!
+    Proveedor: String!
+    Numero_Factura: Int!
+    condominio_id: Int!
+    tipo_de_gasto_id: String!
+}
+
+type Propietario{
+    id: Int!
+    Nombre: String!
+    Apellido: String!
     CI: Int!
-    active: Boolean!
-},
-
-type apartamento{
-    id: Int!
-    codigo: String!
-},
-
-type chat{
-    id: Int!
-    nombre_chat: String!
-},
-
-type condominio{
-    id: Int!
-    nombre: String!
-},
-
-type edificio{
-    id: Int!
-    nombre: String!
-},
-
-type envia_mensaje{
-    mensaje: String!
-},
-
-type gasto_de_edificio{
-    id: Int!
-    motivo: String!
-    dscripcion: String!
-    monto: Float!
-},
-
-type lugar_de_ocio{
-    id: Int!
-    nombre: String!
-},
-
-type pais{
-    id: Int!
-    nombre: String!
-},
-
-type reservacion{
-    hora: Int!
-},
-
-type rol{
-    id: Int!
-    rol: String!
+    Active: Boolean!
+    apartamento_Codigo: String!
+    rol_id: Int!
 }
 
-input filterPropietario {
-    nombre: String!
+type Lugar_de_ocio{
+    id: Int!
+    Nombre: String!
+    Disponible: Boolean!
+    condominio_id: Int!
+    propietario_id: Int!
 }
+
+
+
+# input filterPropietario {
+#     nombre: String!
+# }
+
+# input newPropietario {
+#     nombre: String!
+#     apellido: String!
+#     CI: Int!
+#     active: Boolean!
+# }
 
 
 
 type Query{
 
-#--------------------Queries de Propietario--------------------
+    Roles: [Rol]
+    Condominios: [Condominio]
+    TiposDeGasto: [Tipo_de_gasto]
+    Edificios: [Edificio]
+    Apartamentos: [Apartamento]
+    Facturas_por_apartamento: [Factura_por_apartamento]
+    Propietarios: [Propietario]
+    Lugares_de_ocio: [Lugar_de_ocio]
 
-    getPropietarios: [propietario!]!
-    getPropietarios0: [propietario]
-    getPropietarioNA(nombre: String!, apellido: String!): propietario! 
-    searchPropietarios(filter: filterPropietario): [propietario!]!
 }
 
 
@@ -81,11 +101,15 @@ type Query{
 
 type Mutation{
 
-#--------------------Mutations de Propietario--------------------
+    createRol(Rol: String!): Rol!
+    createCondominio(Nombre: String!): Condominio!
+    createTipoDeGasto(Descripcion: String!): Tipo_de_gasto!
 
-    createPropietario(nombre: String!, apellido: String!, CI: Int!, active: Boolean!): propietario!
-    updatePropietario(nombre: String!, apellido: String!): propietario!
-    deletePropietario(nombre: String!, apellido: String!): propietario!
+    
+
+
+    
+
 
 }
 

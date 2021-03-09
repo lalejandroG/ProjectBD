@@ -1,22 +1,24 @@
 module.exports = (sequelize, DataTypes) => {
-    const Condominio =sequelize.define('condominio',{
-    
-        id:{
-            type: DataTypes.INTEGER,
-            autoIncrement: true,
-            primaryKey: true,
-            allowNull: false
+    const Condominio = sequelize.define(
+      'Condominio', {
+        id: {
+          type: DataTypes.INTEGER,
+          primaryKey: true,
+          allowNull: false,
+          autoIncrement: true
         },
-    
-        nombre:{
-            type: DataTypes.STRING(50),
-            allowNull: false
-        },
-    
-       
-    
-    }, {});
-    
-return Condominio
-    
-}
+        Nombre: {
+          type: DataTypes.STRING,
+          allowNull: false
+        }
+      }, {});
+
+      Condominio.associate = function(models) {
+      Condominio.hasMany(models.Edificio, {
+        foreignKey: 'Condominio_Id',
+        target: 'Id'
+      });
+    }
+
+return Condominio;
+};

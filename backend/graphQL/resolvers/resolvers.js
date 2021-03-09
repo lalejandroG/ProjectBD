@@ -2,55 +2,50 @@ const resolvers = {
 
     Query: {
 
-//Queries de propietario
-        async getPropietarios(root, args, { models }){
-            return await models.propietario.findAll({
-                where: {
-                    active: 1 //Devuelve los propietarios activos
-                }
-            });
-        },
 
-        async getPropietarios0(root, args, { models }){
-            return await models.propietario.findAll({
-                where: {
-                    active: 0 //Devuelve los propietarios inactivos
-                }
-            })
+        async Roles(root, args, { models }){
+            return await models.rol.findAll();
         },
-        
-        async getPropietarioNA(root, { nombre, apellido }, { models }){
-            return await models.propietario.findOne({
-                where: {
-                    nombre,
-                    apellido
-                }
-            })
+        async Condominios(root, args, { models }){
+            return await models.condominio.findAll();
         },
-
-        async searchPropietarios(root, { filter: {nombre} }, { models }){
-            return await models.propietario.findAll({ where: { nombre } })
-        }
-        
+        async TiposDeGasto(root, args, { models }){
+            return await models.tipo_de_gasto.findAll();
+        },
+        async Edificios(root, args, { models }){
+            return await models.edificio.findAll();
+        },
+        async Apartamentos(root, args, { models }){
+            return await models.apartamento.findAll();
+        },
+        async Facturas_por_apartamento(root, args, { models }){
+            return await models.factura_por_apartamento.findAll();
+        },
+        async Propietarios(root, args, { models }){
+            return await models.propietario.findAll();
+        },
+        async Lugares_de_ocio(root, args, { models }){
+            return await models.lugar_de_ocio.findAll();
+        },
 
     },
 
 
+
     Mutation: {
 
-//Mutations de propietario
-        async createPropietario(root, { nombre, apellido, CI, active }, { models }){
-            return await models.propietario.create({ nombre, apellido, CI, active })
-        },
-        //Desactiva al Propietario
-        async deletePropietario(root, args, { models }){
-            return await models.propietario.update({ active: 0 }, {where: { nombre: args.nombre, apellido: args.apellido }}) 
-        }, 
-        //Activa al Propietario
-        async updatePropietario(root, args, { models }){
-            return await models.propietario.update({ active: 1 }, {where: { nombre: args.nombre, apellido: args.apellido }})
 
-        }
+        async createRol(root, { Rol }, { models }){
+            return await models.rol.create({ Rol })
+        },
+
+        async createCondominio(root, { Nombre }, { models }){
+            return await models.condominio.create({ Nombre })
+        },
+
+        async createTipoDeGasto(root, { Descripcion }, { models }){
+            return await models.tipo_de_gasto.create({ Descripcion })
+        },
         
     }
 
